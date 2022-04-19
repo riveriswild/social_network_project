@@ -1,0 +1,31 @@
+    environment:
+      - DB_HOST=db
+      - DB_NAME=mydb-dev
+      - DB_USER=river
+      - DB_PASS=password
+    depends_on:
+      - db
+  db:
+     image: postgres:13-alpine
+     environment:
+      - POSTGRES_DB=mydb-dev
+      - POSTGRES_USER=river
+      - POSTGRES_PASSWORD=password
+     ports:
+      - "5432:5432"
+     volumes:
+      - social-volume:/var/lib/postgresql/data/
+
+volumes:
+  social-volume:
+
+      environment:
+          - POSTGRES_DB=mydb-dev
+          - POSTGRES_USER=river
+          - POSTGRES_PASSWORD=password
+
+    psql -h localhost -p 5433 -U river mydb-dev
+
+  docker-compose run --rm app python
+  docker-compose run --rm app python app/manage.py test video.tests.ProfileModelTest
+
